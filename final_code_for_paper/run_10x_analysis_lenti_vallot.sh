@@ -89,9 +89,6 @@ for ((i=1;i<="$NSAMP";i++)); do
 	RUNID2=$(qsub -W depend=afterany:"$RUNID" -l nodes=1:ppn=1 -l walltime=0:10:00 -l mem=1gb -N 10x_summ"$jid" -k oe -v SAMPLE="$SAMPLE",AGREP_DIR="$AGREP_DIR",R_EXEC="$R_EXEC",SCRIPT_DIR="$SCRIPT_DIR",NMATCH="$NMATCH",NMATCH_OPP="$NMATCH_OPP",BC_LENGTH="$BC_LENGTH" get_consensus_vbcs.sh)
 
 
-	#check whether observed viral barcodes are in lentiviral library
-	qsub -W depend=afterany:"$RUNID2" -l nodes=1:ppn=1 -l walltime=0:10:00 -l mem=5gb -N 10x_annot"$jid" -k oe -v SAMPLE="$SAMPLE",AGREP_DIR="$AGREP_DIR",NMATCH="$NMATCH",NMATCH_OPP="$NMATCH_OPP" check_lenti_bcs_library.sh
-
 done
 
 
